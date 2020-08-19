@@ -4,6 +4,7 @@ class axiosServices {
 
     constructor() {
         const intance = axios.create();
+        intance.interceptors.response.use(this.handleSuccess, this.handleError)
         this.intance = intance; // Đê biến intance sử dụng toàn cục
     }
 

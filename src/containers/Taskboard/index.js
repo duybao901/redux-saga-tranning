@@ -1,59 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
 import { withStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 
 import TaskList from '../../components/TaskList/index'
 import TaskForm from '../../components/TaskForm/index'
-
 import styles from './style'
 import { STATUSS } from '../../contants/index'
+import * as Actions from '../../actions/task'
 
-const listTask = [
-    {
-        id: 1,
-        title: "Read Book",
-        description: "Read Book in libary",
-        status: 0
-    },
-    {
-        id: 2,
-        title: "Make Cofee",
-        description: "Make Cofee at tomorrow",
-        status: 1
-    },
-    {
-        id: 3,
-        title: "Play Football",
-        description: "Play Football with my friend",
-        status: 2
-    },
-    {
-        id: 4,
-        title: "Go to bed",
-        description: "Go to bed at night",
-        status: 1
-    },
-    {
-        id: 5,
-        title: "Go Home",
-        description: "Go home with my friend",
-        status: 2
-    },
-    {
-        id: 6,
-        title: "Playing Game",
-        description: "Playing game with my friend",
-        status: 0
-    },
-    {
-        id: 7,
-        title: "Listening to music",
-        description: "Listening to music",
-        status: 0
-    }
-
-]
 class TaskBoard extends Component {
     constructor(props) {
         super(props);
@@ -61,7 +19,13 @@ class TaskBoard extends Component {
             open: false
         }
     }
-    renderTaskBoard = () => {
+
+    componentDidMount() {
+        const { fectListTask } = this.props;
+        fectListTask();
+    }
+
+    renderTaskBoard = (listTask) => {
         var xhtml = null;
         xhtml = (
             <Grid container spacing={8}>
@@ -79,7 +43,7 @@ class TaskBoard extends Component {
         return xhtml;
     }
 
-    onOpenDialog= () => {
+    onOpenDialog = () => {
         this.setState({
             open: true
         })
@@ -98,7 +62,8 @@ class TaskBoard extends Component {
         return xhtml;
     }
     render() {
-        const { classes } = this.props;
+        const { classes, listTask } = this.props;
+        console.log(listTask)
         return (
             <div className={classes.TaskList}>
                 <Button variant="contained" color="primary" onClick={this.onOpenDialog}>
@@ -107,10 +72,29 @@ class TaskBoard extends Component {
                     </span>
                     Add New Tasks
                 </Button>
-                {this.renderTaskBoard()}
+                {this.renderTaskBoard(listTask.listTask)}
                 {this.renderTaskForm()}
             </div>
         )
     }
 }
-export default withStyles(styles)(TaskBoard);
+
+const mapStateToProps = (state) => {
+    return {
+        listTask: state.tasks
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fectListTask: () => {
+            dispatch(Actions.fectListTaskRequest());
+        }
+    }
+}
+
+TaskBoard.propTypes = {
+    fectListTaskRequest: PropTypes.func
+}
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(TaskBoard));
