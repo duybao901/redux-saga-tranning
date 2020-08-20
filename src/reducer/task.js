@@ -1,5 +1,5 @@
 import * as TaskContants from '../contants/task'
-
+import { toastError } from '../commons/toastifyHeper'
 const initialState = {
     listTask: []
 };
@@ -12,7 +12,6 @@ const myReducer = (state = initialState, action) => {
                 listTask: []
             }
         }
-
         case TaskContants.FETCH_TASK_SUCCESS: {
             const { data } = action.payload;
             return {
@@ -20,6 +19,14 @@ const myReducer = (state = initialState, action) => {
                 listTask: data
             }
         }
+        case TaskContants.FETCH_TASK_FALSE: {
+            const { err } = action.payload
+            toastError(err);
+            return {
+                ...state,
+                listTask: []
+            }
+        }    
         default:
             return state;
     }

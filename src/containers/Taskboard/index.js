@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import {toast } from 'react-toastify'
 
 import { withStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
@@ -63,7 +64,6 @@ class TaskBoard extends Component {
     }
     render() {
         const { classes, listTask } = this.props;
-        console.log(listTask)
         return (
             <div className={classes.TaskList}>
                 <Button variant="contained" color="primary" onClick={this.onOpenDialog}>
