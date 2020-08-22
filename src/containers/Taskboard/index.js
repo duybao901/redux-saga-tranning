@@ -64,7 +64,6 @@ class TaskBoard extends Component {
 
     loadDataDemo = () => {
         const { fectListTask } = this.props;
-        console.log(fectListTask)
         fectListTask();
     }
 
