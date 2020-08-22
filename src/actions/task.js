@@ -7,7 +7,7 @@ export const fetchTask = () => {
     }
 }
 
-export const fectListTaskSucces = (data) => {
+export const fecthListTaskSucces = (data) => {
     return {
         type: TaskConstants.FETCH_TASK_SUCCESS,
         payload: {
@@ -17,7 +17,7 @@ export const fectListTaskSucces = (data) => {
 }
 
 
-export const fectListTaskFalse = (err) => {
+export const fecthListTaskFalse = (err) => {
     return {
         type: TaskConstants.FETCH_TASK_FALSE,
         payload: {
@@ -30,13 +30,13 @@ export const fectListTaskFalse = (err) => {
     B2: Reset: state task = [];
     B3: fectListTaskSucces(data response)
 */
-export const fectListTaskRequest = () => {
+export const fecthListTaskRequest = () => {
     return dispatch => {
         dispatch(fetchTask());
         taskApis.getList().then(res => {
-            dispatch(fectListTaskSucces(res.data))
+            dispatch(fecthListTaskSucces(res.data))
         }).catch(err => {
-            dispatch(fectListTaskFalse(err));
+            dispatch(fecthListTaskFalse(err));
         })
     }
 }

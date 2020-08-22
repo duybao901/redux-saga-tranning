@@ -14,3 +14,9 @@ export const STATUSS = [
         label: "COMPLETE"
     }
 ]
+
+export const STATUS_CODE = {
+    SUSCCES: 200,
+    CREATE: 201,
+    UPDATE: 202
+}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {toast } from 'react-toastify'
 
 import { withStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
@@ -13,6 +12,7 @@ import styles from './style'
 import { STATUSS } from '../../contants/index'
 import * as Actions from '../../actions/task'
 
+
 class TaskBoard extends Component {
     constructor(props) {
         super(props);
@@ -22,8 +22,7 @@ class TaskBoard extends Component {
     }
 
     componentDidMount() {
-        const { fectListTask } = this.props;
-        fectListTask();
+        
     }
 
     renderTaskBoard = (listTask) => {
@@ -62,10 +61,20 @@ class TaskBoard extends Component {
         xhtml = <TaskForm open={open} onCloseDialog={this.handleCloseDialog}></TaskForm>
         return xhtml;
     }
+
+    loadDataDemo = () => {
+        const { fectListTask } = this.props;
+        console.log(fectListTask)
+        fectListTask();
+    }
+
     render() {
         const { classes, listTask } = this.props;
         return (
             <div className={classes.TaskList}>
+                <Button onClick={this.loadDataDemo} variant="contained" color="primary" style={{marginRight: "20px"}}>
+                    Load data
+                </Button>
                 <Button variant="contained" color="primary" onClick={this.onOpenDialog}>
                     <span className="material-icons">
                         add
@@ -88,13 +97,18 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fectListTask: () => {
-            dispatch(Actions.fectListTaskRequest());
+            // dispatch(Actions.fectListTaskRequest());
+            dispatch(Actions.fetchTask());
+
         }
     }
 }
 
 TaskBoard.propTypes = {
-    fectListTaskRequest: PropTypes.func
+    fectListTaskRequest: PropTypes.func,
+    listTask: PropTypes.shape({
+        listTask: PropTypes.array
+    })
 }
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(TaskBoard));
