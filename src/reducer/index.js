@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux'
-import tasks from './task'
-import ui from './ui'
-import modal from './modal'
+import { combineReducers } from 'redux';
+import modal from './modal';
+import tasks from './task';
+import ui from './ui';
 
 const myReducer = combineReducers({
     tasks,

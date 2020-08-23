@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-
 import { withStyles } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-
-import TaskList from '../../components/TaskList/index'
-import TaskForm from '../../components/TaskForm/index'
-import SearchBox from '../../components/SearchBox/index'
-import styles from './style'
-import { STATUSS } from '../../contants/index'
-import * as ActionsTask from '../../actions/task'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import * as ActionsModal from '../../actions/modal'
+import * as ActionsTask from '../../actions/task'
+import SearchBox from '../../components/SearchBox/index'
+import TaskForm from '../../components/TaskForm/index'
+import TaskList from '../../components/TaskList/index'
+import { STATUSS } from '../../contants/index'
+import styles from './style'
 
 
 class TaskBoard extends Component {
@@ -47,9 +45,10 @@ class TaskBoard extends Component {
     }
 
     onOpenDialog = () => {
-        const { showModal, showModalTitle } = this.props;
+        const { showModal, changeModalTitle, changeModalContent } = this.props;
         showModal();
-        showModalTitle('Show modal title')
+        changeModalTitle('Add New Task');
+        changeModalContent(<TaskForm />);
     }
 
     handleCloseDialog = () => {
@@ -58,12 +57,6 @@ class TaskBoard extends Component {
         })
     }
 
-    renderTaskForm = () => {
-        var xhtml = null;
-        const { open } = this.state;
-        xhtml = <TaskForm open={open} onCloseModal={this.handleCloseDialog}></TaskForm>
-        return xhtml;
-    }
 
     onFilter = (e) => {
         const { filterTask } = this.props;
@@ -72,7 +65,7 @@ class TaskBoard extends Component {
 
     renderSearchBox = () => {
         var xHtml = null;
-        xHtml = <SearchBox handleChange={this.onFilter}/>
+        xHtml = <SearchBox handleChange={this.onFilter} />
         return xHtml;
     }
 
@@ -85,7 +78,7 @@ class TaskBoard extends Component {
         const { classes, listTask } = this.props;
         return (
             <div className={classes.TaskList}>
-                <Button onClick={this.loadDataDemo} variant="contained" color="primary" style={{marginRight: "20px"}}>
+                <Button onClick={this.loadDataDemo} variant="contained" color="primary" style={{ marginRight: "20px" }}>
                     Load data
                 </Button>
                 <Button variant="contained" color="primary" onClick={this.onOpenDialog}>
@@ -96,7 +89,6 @@ class TaskBoard extends Component {
                 </Button>
                 {this.renderSearchBox()}
                 {this.renderTaskBoard(listTask.listTask)}
-                {this.renderTaskForm()}
             </div>
         )
     }
@@ -120,16 +112,16 @@ const mapDispatchToProps = (dispatch) => {
         showModal: () => {
             dispatch(ActionsModal.showModal())
         },
-        showModalTitle: (title) => {
-            dispatch(ActionsModal.showModalTitle(title))
+        changeModalTitle: (title) => {
+            dispatch(ActionsModal.changeModalTitle(title))
         },
-        showModalContent: (component) => {
-            dispatch(ActionsModal.showModalContent(component))
+        changeModalContent: (component) => {
+            dispatch(ActionsModal.changeModalContent(component))
         },
         hideModal: () => {
             dispatch(ActionsModal.hideModal())
         },
-    
+
     }
 }
 

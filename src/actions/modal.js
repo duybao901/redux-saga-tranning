@@ -12,18 +12,18 @@ export const hideModal = () => {
     }
 }
 
-export const showModalTitle = (title) => {
+export const changeModalTitle = (title) => {
     return {
-        type: modalTypes.SHOW_MODAL_TITLE,
+        type: modalTypes.CHANGE_MODAL_TITLE,
         payload: {
             title
         }
     }
 }
 
-export const showModalContent = component => {
+export const changeModalContent = component => {
     return {
-        type: modalTypes.SHOW_MODAL_CONTENT,
+        type: modalTypes.CHANGE_MODAL_CONTENT,
         payload: {
             component
         }

@@ -1,4 +1,4 @@
-import * as modalTypes from '../contants/modal'
+import * as modalTypes from '../contants/modal';
 
 const initialState = {
     openModal: false,
@@ -20,14 +20,14 @@ const myReducer = (state = initialState, action) => {
                 openModal: false
             }
         }
-        case modalTypes.SHOW_MODAL_TITLE: {
+        case modalTypes.CHANGE_MODAL_TITLE: {
             const { title } = action.payload
             return {
                 ...state,
                 title: title
             }
         }
-        case modalTypes.SHOW_MODAL: {
+        case modalTypes.CHANGE_MODAL_CONTENT: {
             const { component } = action.payload
             return {
                 ...state,
