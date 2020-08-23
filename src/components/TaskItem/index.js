@@ -29,7 +29,13 @@ class TaskItem extends Component {
                             </Typography>
                         </Grid>
                     </Grid>
+                    <Box component="div" mt={2}>
+                        <Typography component="p" >
+                            {task.description }
+                        </Typography>
+                    </Box>
                 </CardContent>
+               
                 <CardActions>
                     <Grid container justify="flex-end">
                         <Box component="span" mr={2}>

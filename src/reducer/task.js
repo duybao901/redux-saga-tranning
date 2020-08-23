@@ -25,9 +25,17 @@ const myReducer = (state = initialState, action) => {
             toastError(err);
             return {
                 ...state,
-                listTask: []
+                listTask: state.listTask
             }
         }    
+     
+        case TaskContants.FILTER_TASK_SUCCESS: {
+            const { data } = action.payload
+            return {
+                ...state,
+                listTask: data
+            }
+        }
         default:
             return state;
     }

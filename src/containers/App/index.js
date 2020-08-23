@@ -3,7 +3,6 @@ import { withStyles, ThemeProvider } from '@material-ui/core'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-
 import theme from '../../commons/Theme/index'
 import styles from './style'
 import TarkBoard from '../Taskboard/index'

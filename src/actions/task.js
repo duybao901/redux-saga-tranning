@@ -1,4 +1,4 @@
-import * as taskApis from '../apis/task'
+
 import * as TaskConstants from '../contants/task'
 
 export const fetchTask = () => {
@@ -25,19 +25,25 @@ export const fecthListTaskFalse = (err) => {
         }
     }
 }
-/*
-    B1: fectListTaskRequest();
-    B2: Reset: state task = [];
-    B3: fectListTaskSucces(data response)
-*/
-export const fecthListTaskRequest = () => {
-    return dispatch => {
-        dispatch(fetchTask());
-        taskApis.getList().then(res => {
-            dispatch(fecthListTaskSucces(res.data))
-        }).catch(err => {
-            dispatch(fecthListTaskFalse(err));
-        })
+
+
+export const filterTask = keyword => {
+    return {
+        type: TaskConstants.FILTER_TASK,
+        payload: {
+            keyword
+        }
+    
+    }
+}
+
+// thanh cong thi lay du lieu: delay 0,5s
+export const filterTaskSucces = data => {
+    return {
+        type: TaskConstants.FILTER_TASK_SUCCESS,
+        payload: {
+            data
+        }
     }
 }
 

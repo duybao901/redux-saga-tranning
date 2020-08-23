@@ -1,0 +1,5 @@
+export const SHOW_MODAL = "SHOW_MODAL"
+export const HIDE_MODAL = "HIDE_MODAL"
+export const SHOW_MODAL_TITLE = "SHOW_MODAL_TITLE"
+export const SHOW_MODAL_CONTENT = "SHOW_MODAL_CONTENT"
+

@@ -8,9 +8,11 @@ import Grid from '@material-ui/core/Grid'
 
 import TaskList from '../../components/TaskList/index'
 import TaskForm from '../../components/TaskForm/index'
+import SearchBox from '../../components/SearchBox/index'
 import styles from './style'
 import { STATUSS } from '../../contants/index'
-import * as Actions from '../../actions/task'
+import * as ActionsTask from '../../actions/task'
+import * as ActionsModal from '../../actions/modal'
 
 
 class TaskBoard extends Component {
@@ -22,7 +24,8 @@ class TaskBoard extends Component {
     }
 
     componentDidMount() {
-        
+        const { fectListTask } = this.props;
+        fectListTask();
     }
 
     renderTaskBoard = (listTask) => {
@@ -44,9 +47,9 @@ class TaskBoard extends Component {
     }
 
     onOpenDialog = () => {
-        this.setState({
-            open: true
-        })
+        const { showModal, showModalTitle } = this.props;
+        showModal();
+        showModalTitle('Show modal title')
     }
 
     handleCloseDialog = () => {
@@ -58,8 +61,19 @@ class TaskBoard extends Component {
     renderTaskForm = () => {
         var xhtml = null;
         const { open } = this.state;
-        xhtml = <TaskForm open={open} onCloseDialog={this.handleCloseDialog}></TaskForm>
+        xhtml = <TaskForm open={open} onCloseModal={this.handleCloseDialog}></TaskForm>
         return xhtml;
+    }
+
+    onFilter = (e) => {
+        const { filterTask } = this.props;
+        filterTask(e.target.value);
+    }
+
+    renderSearchBox = () => {
+        var xHtml = null;
+        xHtml = <SearchBox handleChange={this.onFilter}/>
+        return xHtml;
     }
 
     loadDataDemo = () => {
@@ -80,6 +94,7 @@ class TaskBoard extends Component {
                     </span>
                     Add New Tasks
                 </Button>
+                {this.renderSearchBox()}
                 {this.renderTaskBoard(listTask.listTask)}
                 {this.renderTaskForm()}
             </div>
@@ -97,14 +112,34 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fectListTask: () => {
             // dispatch(Actions.fectListTaskRequest());
-            dispatch(Actions.fetchTask());
-
-        }
+            dispatch(ActionsTask.fetchTask());
+        },
+        filterTask: keyword => {
+            dispatch(ActionsTask.filterTask(keyword))
+        },
+        showModal: () => {
+            dispatch(ActionsModal.showModal())
+        },
+        showModalTitle: (title) => {
+            dispatch(ActionsModal.showModalTitle(title))
+        },
+        showModalContent: (component) => {
+            dispatch(ActionsModal.showModalContent(component))
+        },
+        hideModal: () => {
+            dispatch(ActionsModal.hideModal())
+        },
+    
     }
 }
 
 TaskBoard.propTypes = {
     fectListTaskRequest: PropTypes.func,
+    filterTask: PropTypes.func,
+    showModal: PropTypes.func,
+    showModalTitle: PropTypes.func,
+    showModalContent: PropTypes.func,
+    hideModal: PropTypes.func,
     listTask: PropTypes.shape({
         listTask: PropTypes.array
     })

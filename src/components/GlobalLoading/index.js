@@ -3,12 +3,12 @@ import { withStyles } from '@material-ui/styles'
 import styles from './style'
 import loadingIcon from '../../assets/img/loading.gif'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 
 class GlobalLoading extends Component{
     render() {
         const { classes, showLoading } = this.props;
-        console.log(showLoading)
         var xHtml = null;
         if (showLoading) {         
             xHtml =  <div className={classes.loadingWrapper}>
@@ -23,6 +23,10 @@ const mapStateToProps = (state) => {
     return {
         showLoading: state.ui.showLoading
     }
+}
+
+GlobalLoading.propTypes = {
+    showLoading: PropTypes.bool
 }
 
 const withConnect = connect(mapStateToProps, null)

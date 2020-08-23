@@ -1,9 +1,9 @@
 // root saga: Điểm bắt đầu của saga
-import { fork, take, call, put, delay } from 'redux-saga/effects'
+import { fork, take, call, put, delay, takeLatest, select } from 'redux-saga/effects'
 import * as actionsType from '../contants/task'
 import { getList } from '../apis/task'
 import { STATUS_CODE } from '../contants/index'
-import { fecthListTaskSucces, fecthListTaskFalse } from '../actions/task'
+import { fecthListTaskSucces, fecthListTaskFalse, filterTaskSucces } from '../actions/task'
 import {globalShowLoading, globalHideLoading} from '../actions/ui'
 
 
@@ -15,7 +15,7 @@ function* watchFecthDataAction() {
         const resp = yield call(getList);
         // ========= Blocking: Goi api thanh cong thi moi chay dong code o duoi =========//
 
-        yield delay(1000)
+        yield delay(1500)
         const { status, data } = resp;
     
         if (status === STATUS_CODE.SUSCCES) {
@@ -29,13 +29,21 @@ function* watchFecthDataAction() {
     }
 }
 
-function* watchCreateTaskAction() {
-    console.log("Create Task Action")
+function* filterTaskSaga(action){
+    const { keyword } = action.payload;
+    yield delay(500);
+    const listTask = yield select(state => {
+        return state.tasks.listTask
+    });
+    var filterTask = listTask.filter((task) => {
+        return task.title.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+    })
+    yield put(filterTaskSucces(filterTask));
 }
 
 function* rootSaga() {
     yield fork(watchFecthDataAction);
-    yield fork(watchCreateTaskAction);
+    yield takeLatest(actionsType.FILTER_TASK, filterTaskSaga);  
 }
 
 export default rootSaga;    
