@@ -48,7 +48,7 @@ class TaskBoard extends Component {
         const { showModal, changeModalTitle, changeModalContent } = this.props;
         showModal();
         changeModalTitle('Add New Task');
-        changeModalContent(<TaskForm />);
+        changeModalContent(<TaskForm closeModal={showModal}/>);
     }
 
     handleCloseDialog = () => {

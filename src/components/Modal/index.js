@@ -24,7 +24,7 @@ class ComponentModal extends Component {
                         </Box>
                     </Grid>
                     <Box component="div" className={classes.modalFormContent}>
-                        {component}
+                       {component}
                     </Box>
                 </Box>
             </Modal>

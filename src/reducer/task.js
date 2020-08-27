@@ -31,9 +31,10 @@ const myReducer = (state = initialState, action) => {
      
         case TaskContants.FILTER_TASK_SUCCESS: {
             const { data } = action.payload
+            const newState = data;
             return {
                 ...state,
-                listTask: data
+                listTask: [...newState]
             }
         }
         default:
