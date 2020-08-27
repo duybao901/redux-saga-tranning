@@ -9,6 +9,7 @@ import styles from './style'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import * as modalActions from '../../actions/modal'
+import renderTextField from '../../components/FormHelper/renderTextField/index'
 class TaskForm extends Component {
 
     handleSubmitForm = (data) => {
@@ -18,12 +19,9 @@ class TaskForm extends Component {
     render() {
         const { classes, closeModal, handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit(this.handleSubmitForm)}>
-                <Grid>
-                    <Field name="title" component="input"></Field>
-                </Grid>
-                <TextField id="standard-basic" label="Title" className={classes.modalTextField} />
-                <TextField id="standard-basic" label="Description" className={classes.modalTextField} />
+            <form onSubmit={handleSubmit(this.handleSubmitForm)}>       
+                <Field className={classes.modalTextField} name="titile" label="Title" component={renderTextField}></Field>
+                <Field className={classes.modalTextField} name="description" label="Description" component={renderTextField}></Field>
                 <Grid container direction="row" justify="flex-end">
                     <Box mr={2} component="div">
                         <Button variant="contained" onClick={closeModal}>Cancel</Button>
