@@ -48,7 +48,7 @@ class TaskBoard extends Component {
         const { showModal, changeModalTitle, changeModalContent } = this.props;
         showModal();
         changeModalTitle('Add New Task');
-        changeModalContent(<TaskForm closeModal={showModal}/>);
+        changeModalContent(<TaskForm closeModal={showModal} />);
     }
 
     handleCloseDialog = () => {
@@ -56,7 +56,6 @@ class TaskBoard extends Component {
             open: false
         })
     }
-
 
     onFilter = (e) => {
         const { filterTask } = this.props;

@@ -1,9 +1,12 @@
 
 import * as TaskConstants from '../contants/task'
 
-export const fetchTask = () => {
+export const fetchTask = (param = {}) => {
     return {
-        type: TaskConstants.FETCH_TASK
+        type: TaskConstants.FETCH_TASK,
+        payload: {
+            param
+        }
     }
 }
 
@@ -33,7 +36,6 @@ export const filterTask = keyword => {
         payload: {
             keyword
         }
-    
     }
 }
 
