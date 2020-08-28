@@ -8,13 +8,18 @@ import TaskItem from '../TaskItem/index'
 
 class TaskList extends Component {
     render() {
-        const { task, status, classes } = this.props;
+        const { task, status, classes, onClickEdit } = this.props;
         return <Grid item xs={12} md={6} lg={4} key={task}>
             <Box component="div" mt={10} mb={3} className={classes.status}>{status.label}</Box>
             <Box component="div" className={classes.wrapperStatus}>
                 {
                     task.map((task, index) => {
-                        return <TaskItem task={task} status={status} key={index}></TaskItem>
+                        return <TaskItem
+                            task={task}
+                            status={status}
+                            key={index}
+                            clickEdit={() => onClickEdit(task)}
+                        ></TaskItem>
                     })
                 }
             </Box>

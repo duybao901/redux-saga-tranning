@@ -14,16 +14,14 @@ import styles from './style'
 
 
 class TaskBoard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: false
-        }
-    }
 
     componentDidMount() {
         const { fectListTask } = this.props;
         fectListTask();
+    }
+
+    handleEditTask = task => {
+       
     }
 
     renderTaskBoard = (listTask) => {
@@ -36,7 +34,7 @@ class TaskBoard extends Component {
                         var taskBoardFilter = listTask.filter((tark) => {
                             return tark.status === status.value
                         })
-                        return <TaskList task={taskBoardFilter} status={status} key={index}></TaskList>
+                        return <TaskList task={taskBoardFilter} status={status} key={index} onClickEdit={this.handleEditTask}></TaskList>
                     })
                 }
             </Grid>
@@ -119,7 +117,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         hideModal: () => {
             dispatch(ActionsModal.hideModal())
-        },
+        }
 
     }
 }

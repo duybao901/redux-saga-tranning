@@ -13,7 +13,7 @@ import styles from './style'
 
 class TaskItem extends Component {
     render() {
-        const { task, status, classes } = this.props;
+        const { task, status, classes, clickEdit } = this.props;
         return (<Box component="div" mb={5}>
             <Card className={classes.root} >
                 <CardContent>
@@ -39,7 +39,7 @@ class TaskItem extends Component {
                 <CardActions>
                     <Grid container justify="flex-end">
                         <Box component="span" mr={2}>
-                            <Button variant="contained" color="primary">
+                            <Button variant="contained" color="primary" onClick={clickEdit}>
                                 <EditIcon />Edit
                             </Button>
                         </Box>

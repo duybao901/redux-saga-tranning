@@ -12,5 +12,10 @@ export const toastError = err => {
 
 export const toastSuccess = () => {
     toast.success(`LoadData Success`);
-
 }
+
+
+export const addTaskSuccses = () => {
+    toast.success(`Add Task Succes`);
+}
+

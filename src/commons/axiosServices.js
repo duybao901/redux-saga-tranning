@@ -20,6 +20,10 @@ class axiosServices {
         return this.intance.get(url);
     }
 
+    post(url, body) {
+        return this.intance.post(url,body)
+    }
+
 }
 
 export default new axiosServices();

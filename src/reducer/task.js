@@ -1,5 +1,5 @@
-import * as TaskContants from '../contants/task'
-import { toastError, toastSuccess } from '../commons/toastifyHeper'
+import { addTaskSuccses, toastError, toastSuccess } from '../commons/toastifyHeper';
+import * as TaskContants from '../contants/task';
 const initialState = {
     listTask: []
 };
@@ -27,14 +27,36 @@ const myReducer = (state = initialState, action) => {
                 ...state,
                 listTask: state.listTask
             }
-        }    
-     
+        }
+
         case TaskContants.FILTER_TASK_SUCCESS: {
             const { data } = action.payload
             const newState = data;
             return {
                 ...state,
                 listTask: [...newState]
+            }
+        }
+        case TaskContants.ADD_TASK: {
+            return {
+                ...state
+            }
+        }
+        case TaskContants.ADD_TASK_SUCCESS: {
+            // Thanh cong luu vao store
+            const { data } = action.payload;
+            addTaskSuccses()
+            return {
+                ...state,
+                listTask: state.listTask.concat([data])
+            }
+        }
+        case TaskContants.ADD_TASK_FALSE: {
+            const { error } = action.payload;
+            toastError(error);
+            return {
+                ...state,
+                error
             }
         }
         default:

@@ -10,10 +10,14 @@ import * as modalActions from '../../actions/modal'
 import renderTextField from '../../components/FormHelper/renderTextField/index'
 import styles from './style'
 import validate from './validate'
+import * as TaskActions from '../../actions/task'
 class TaskForm extends Component {
 
     handleSubmitForm = (data) => {
-        console.log("data: ",data);
+        const { addTask } = this.props;
+
+        const { title, description } = data;
+        addTask(title, description);
     }
 
     require = value => {
@@ -65,6 +69,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         closeModal: () => {
             dispatch(modalActions.hideModal());
+        },
+        addTask: (title, description) => {
+            dispatch(TaskActions.addTask(title, description))
         }
     }
 }

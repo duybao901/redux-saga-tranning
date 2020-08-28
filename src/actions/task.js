@@ -49,4 +49,43 @@ export const filterTaskSucces = data => {
     }
 }
 
-  
+export const addTask = (title, description) => {
+    return {
+        type: TaskConstants.ADD_TASK,
+        payload: {
+            title,
+            description
+        }
+
+    }
+}
+
+export const addTaskSucces = data => {
+    return {
+        type: TaskConstants.ADD_TASK_SUCCESS,
+        payload: {
+            data
+        }
+
+    }
+}
+
+export const addTaskFalse = error => {
+    return {
+        type: TaskConstants.ADD_TASK_FALSE,
+        payload: {
+            error
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
