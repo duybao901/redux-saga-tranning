@@ -9,3 +9,8 @@ export const ADD_TASK = "ADD_TASK"
 export const ADD_TASK_SUCCESS = "ADD_TASK_SUCCESS"
 export const ADD_TASK_FALSE = "ADD_TASK_FALSE"
 
+export const TASK_EDITING = "TASK_EDITING"
+
+export const UPDATE_TASK = "UPDATE_TASK"
+export const UPDATE_TASK_SUCCESS = "UPDATE_TASK_SUCCESS"
+export const UPDATE_TASK_FALSE = "UPDATE_TASK_FALSE"

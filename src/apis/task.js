@@ -20,3 +20,12 @@ export const addTask = data => {
     return axiosServices.post(`${API_URL}/${url}`, data)
 }
 
+// http://localhost:3000/tasks/:id METHOD : PUT
+export const updateTaskAPI = (data, taskId) => {
+
+    return axiosServices.put(`${API_URL}/${url}/${taskId}`, {
+        title: data.title,
+        description: data.description,
+        status: parseInt(data.status)
+    })
+}

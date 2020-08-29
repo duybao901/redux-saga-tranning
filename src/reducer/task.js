@@ -1,7 +1,8 @@
 import { addTaskSuccses, toastError, toastSuccess } from '../commons/toastifyHeper';
 import * as TaskContants from '../contants/task';
 const initialState = {
-    listTask: []
+    listTask: [],
+    taskEditing: null
 };
 
 const myReducer = (state = initialState, action) => {
@@ -39,7 +40,8 @@ const myReducer = (state = initialState, action) => {
         }
         case TaskContants.ADD_TASK: {
             return {
-                ...state
+                ...state,
+                taskEditing: null
             }
         }
         case TaskContants.ADD_TASK_SUCCESS: {
@@ -52,6 +54,45 @@ const myReducer = (state = initialState, action) => {
             }
         }
         case TaskContants.ADD_TASK_FALSE: {
+            const { error } = action.payload;
+            toastError(error);
+            return {
+                ...state,
+                error
+            }
+        }
+        case TaskContants.TASK_EDITING: {
+            const { task } = action.payload;
+            return {
+                ...state,
+                taskEditing: task
+            }
+        }
+        case TaskContants.UPDATE_TASK: {
+
+            return {
+                ...state,
+            }
+        }
+        case TaskContants.UPDATE_TASK_SUCCESS: {
+            const { data } = action.payload;
+            const {listTask} = state
+            const index = listTask.findIndex((task) => {
+                return task.id === data.id
+            })
+            // 1 3 5 7 9
+            // ...1 3   ,data, ...7 9
+            const newList = [
+                ...listTask.slice(0, index),
+                data,
+                ...listTask.slice(index + 1)
+            ];
+            return {
+                ...state,
+                listTask: newList
+            }
+        }
+        case TaskContants.UPDATE_TASK_FALSE: {
             const { error } = action.payload;
             toastError(error);
             return {

@@ -7,50 +7,65 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { Field, reduxForm } from 'redux-form'
 import * as modalActions from '../../actions/modal'
+import * as TaskActions from '../../actions/task'
 import renderTextField from '../../components/FormHelper/renderTextField/index'
+import renderSelectField from '../FormHelper/renderSelectField'
 import styles from './style'
 import validate from './validate'
-import * as TaskActions from '../../actions/task'
 class TaskForm extends Component {
 
     handleSubmitForm = (data) => {
-        const { addTask } = this.props;
-
-        const { title, description } = data;
-        addTask(title, description);
+        const { addTask, updateTask , taskEditing} = this.props;
+        const { title, description, status } = data;
+        if (taskEditing && taskEditing.id) {
+            updateTask(title,description, status);
+        } else {         
+            addTask(title, description);
+        }
     }
 
-    require = value => {
-        var err = "Invalid Title";
-        if (value !== '' && typeof value !== 'undefined' && value.trim() !== '') {
-            err = null;
+    renderStatus = () => {
+        let xhtml = null;
+        const { taskEditing, classes } = this.props;
+        if (taskEditing && taskEditing.id) {
+            xhtml = <Field
+                id="status"
+                className={classes.modalTextField}
+                name="status"
+                label="Status"
+                component={renderSelectField}
+            >
+                <option value="" />
+                <option value={0}>Ready</option>
+                <option value={1}>In Progress</option>
+                <option value={2}>Complete</option>
+            </Field>
         }
-        return err;
-    }
-    maxLength5 = value => {
-        var err = "Invalid more than 5 character ";
-        if (value.trim().length > 5) {
-            err = null;
-        }
-        return err;
+        return xhtml;
     }
 
     render() {
-        const { classes, closeModal, handleSubmit } = this.props;
+        const { classes, closeModal, handleSubmit, initialValues } = this.props;
+        if (initialValues !== null) {
+            var { title, description } = initialValues;
+        }
         return (
             <form onSubmit={handleSubmit(this.handleSubmitForm)}>
                 <Field
                     className={classes.modalTextField}
                     name="title" label="Title"
                     component={renderTextField}
-                    // validate={[this.require,this.maxLength5]}
+                    value={title}
+                // validate={[this.require,this.maxLength5]}
                 ></Field>
                 <Field
                     className={classes.modalTextField}
                     name="description" label="Description"
                     component={renderTextField}
-                    // validate={this.require}
+                    value={description}
+                // validate={this.require}
                 ></Field>
+                {this.renderStatus()}
                 <Grid container direction="row" justify="flex-end">
                     <Box mr={2} component="div">
                         <Button variant="contained" onClick={closeModal}>Cancel</Button>
@@ -64,7 +79,15 @@ class TaskForm extends Component {
     }
 }
 
-
+const mapStateToProps = (state) => {
+    return {
+        // taskEditing thi ko do~ len form dc
+        taskEditing: state.tasks.taskEditing,
+        // Nhung initialValues thi  do~ len form duoc
+        // Vi no se~ khoi tao gia tri cho form
+        initialValues: state.tasks.taskEditing // pull initial values from account reducer
+    }
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         closeModal: () => {
@@ -72,11 +95,14 @@ const mapDispatchToProps = (dispatch) => {
         },
         addTask: (title, description) => {
             dispatch(TaskActions.addTask(title, description))
+        },
+        updateTask: (title,description,status) => {
+            dispatch(TaskActions.updateTask(title, description, status))
         }
     }
 }
 
-var withConnect = connect(null, mapDispatchToProps);
+var withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 var ContactForm = reduxForm({
     // a unique name for the form

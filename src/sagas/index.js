@@ -1,9 +1,9 @@
 // root saga: Điểm bắt đầu của saga
-import { call, delay, fork, put, take, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, delay, fork, put, take, takeEvery, takeLatest, select } from 'redux-saga/effects'
 import { hideModal } from '../actions/modal'
-import { addTaskFalse, addTaskSucces, fecthListTaskFalse, fecthListTaskSucces, fetchTask } from '../actions/task'
+import { addTaskFalse, addTaskSucces, fecthListTaskFalse, fecthListTaskSucces, fetchTask,updateTask,updateTaskSucces,updateTaskFalse } from '../actions/task'
 import { globalHideLoading, globalShowLoading } from '../actions/ui'
-import { addTask, getList } from '../apis/task'
+import { addTask, getList, updateTaskAPI } from '../apis/task'
 import { STATUS_CODE } from '../contants/index'
 import * as actionsType from '../contants/task'
 
@@ -66,11 +66,36 @@ function* addTaskSaga(action) {
 
 }
 
+function* updateTaskSaga(action) {
+    const { title, description, status } = action.payload;
+    const taskEditing = yield select(state => state.tasks.taskEditing)
+    yield put(globalShowLoading());
+    const resp = yield call(updateTaskAPI, {
+        title,
+        description,
+        status
+    }, taskEditing.id);
+    const {  data } = resp;
+    console.log(resp.status)
+    if (resp.status === STATUS_CODE.SUSCCES) {
+        console.log("1")
+        yield put(hideModal())
+        yield delay(700);
+        yield put(globalHideLoading())
+        yield put(updateTaskSucces(data))
+
+    } else {
+        yield put(updateTaskFalse(data))
+    }
+    delay(500);
+    yield put(globalHideLoading())
+}
+
 function* rootSaga() {
     yield fork(watchFecthDataAction);
     yield takeEvery(actionsType.ADD_TASK, addTaskSaga);
     yield takeLatest(actionsType.FILTER_TASK, filterTaskSaga);
-
+    yield takeLatest(actionsType.UPDATE_TASK, updateTaskSaga);
 }
 
 export default rootSaga;    

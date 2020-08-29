@@ -11,7 +11,7 @@ export const toastError = err => {
 }
 
 export const toastSuccess = () => {
-    toast.success(`LoadData Success`);
+    toast.success(`Load Data Success`);
 }
 
 

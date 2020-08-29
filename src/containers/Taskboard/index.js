@@ -21,7 +21,11 @@ class TaskBoard extends Component {
     }
 
     handleEditTask = task => {
-       
+        const { showModal, changeModalTitle, changeModalContent, setTaskEditing} = this.props;
+        setTaskEditing(task);      
+        showModal();
+        changeModalTitle('Editing Task');
+        changeModalContent(<TaskForm />);
     }
 
     renderTaskBoard = (listTask) => {
@@ -43,7 +47,8 @@ class TaskBoard extends Component {
     }
 
     onOpenDialog = () => {
-        const { showModal, changeModalTitle, changeModalContent } = this.props;
+        const { showModal, changeModalTitle, changeModalContent, setTaskEditing } = this.props;
+        setTaskEditing(null);
         showModal();
         changeModalTitle('Add New Task');
         changeModalContent(<TaskForm closeModal={showModal} />);
@@ -117,6 +122,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         hideModal: () => {
             dispatch(ActionsModal.hideModal())
+        },
+        setTaskEditing: (task) => {
+            dispatch(ActionsTask.taskEditing(task));
         }
 
     }

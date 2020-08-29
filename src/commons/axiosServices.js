@@ -23,6 +23,9 @@ class axiosServices {
     post(url, body) {
         return this.intance.post(url,body)
     }
+    put(url, body) {
+        return this.intance.put(url, body)
+    }
 
 }
 
