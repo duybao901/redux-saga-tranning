@@ -13,7 +13,7 @@ import styles from './style'
 
 class TaskItem extends Component {
     render() {
-        const { task, status, classes, clickEdit } = this.props;
+        const { task, status, classes, clickEdit, clickDeleteTask } = this.props;
         return (<Box component="div" mb={5}>
             <Card className={classes.root} >
                 <CardContent>
@@ -44,7 +44,7 @@ class TaskItem extends Component {
                             </Button>
                         </Box>
                         <Box component="span" >
-                            <Button variant="contained" color="secondary">
+                            <Button variant="contained" color="secondary" onClick={clickDeleteTask}>
                                 <DeleteIcon />Delete
                             </Button>
                         </Box>

@@ -1,4 +1,4 @@
-import { addTaskSuccses, toastError, toastSuccess } from '../commons/toastifyHeper';
+import { addTaskSuccses, toastError, toastSuccess, updateTaskSuccses } from '../commons/toastifyHeper';
 import * as TaskContants from '../contants/task';
 const initialState = {
     listTask: [],
@@ -75,8 +75,9 @@ const myReducer = (state = initialState, action) => {
             }
         }
         case TaskContants.UPDATE_TASK_SUCCESS: {
+            updateTaskSuccses();
             const { data } = action.payload;
-            const {listTask} = state
+            const { listTask } = state
             const index = listTask.findIndex((task) => {
                 return task.id === data.id
             })

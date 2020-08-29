@@ -35,7 +35,6 @@ class TaskForm extends Component {
                 label="Status"
                 component={renderSelectField}
             >
-                <option value="" />
                 <option value={0}>Ready</option>
                 <option value={1}>In Progress</option>
                 <option value={2}>Complete</option>

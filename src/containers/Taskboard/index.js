@@ -11,6 +11,7 @@ import TaskForm from '../../components/TaskForm/index'
 import TaskList from '../../components/TaskList/index'
 import { STATUSS } from '../../contants/index'
 import styles from './style'
+import Box from '@material-ui/core/Box'
 
 
 class TaskBoard extends Component {
@@ -28,6 +29,27 @@ class TaskBoard extends Component {
         changeModalContent(<TaskForm />);
     }
 
+    showModalDeleteTask = (task) => {
+        const { showModal, hideModal, changeModalTitle, changeModalContent, classes } = this.props;
+        showModal();
+        changeModalTitle('Delete Task');
+        changeModalContent(<div className={classes.deleteTaskContent}>
+            <span className="classes.deleteTaskText">Are you sure you want to delete
+            <span className={classes.deleteTaskTextBlod}>  {task.title}</span> ?
+            </span>
+            <Box mt={4}>
+                <Grid container direction="row" justify="flex-end">
+                    <Box mr={2} component="div">
+                        <Button variant="contained" onClick={hideModal}>Cancel</Button>
+                    </Box>
+                    <Box component="div">
+                        <Button variant="contained" color="primary" type="submit" className={classes.deleteTaskButtonOk}>Ok</Button>
+                    </Box>
+                </Grid>
+            </Box>
+        </div>);
+    }
+
     renderTaskBoard = (listTask) => {
         var xhtml = null;
         xhtml = (
@@ -38,7 +60,13 @@ class TaskBoard extends Component {
                         var taskBoardFilter = listTask.filter((tark) => {
                             return tark.status === status.value
                         })
-                        return <TaskList task={taskBoardFilter} status={status} key={index} onClickEdit={this.handleEditTask}></TaskList>
+                        return <TaskList
+                            task={taskBoardFilter}
+                            status={status} key={index}
+                            onClickEdit={this.handleEditTask}
+                            onClickDeleteTask={this.showModalDeleteTask}
+                        >
+                            </TaskList>
                     })
                 }
             </Grid>

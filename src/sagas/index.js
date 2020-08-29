@@ -1,7 +1,7 @@
 // root saga: Điểm bắt đầu của saga
-import { call, delay, fork, put, take, takeEvery, takeLatest, select } from 'redux-saga/effects'
+import { call, delay, fork, put, select, take, takeEvery, takeLatest } from 'redux-saga/effects'
 import { hideModal } from '../actions/modal'
-import { addTaskFalse, addTaskSucces, fecthListTaskFalse, fecthListTaskSucces, fetchTask,updateTask,updateTaskSucces,updateTaskFalse } from '../actions/task'
+import { addTaskFalse, addTaskSucces, fecthListTaskFalse, fecthListTaskSucces, fetchTask, updateTaskFalse, updateTaskSucces } from '../actions/task'
 import { globalHideLoading, globalShowLoading } from '../actions/ui'
 import { addTask, getList, updateTaskAPI } from '../apis/task'
 import { STATUS_CODE } from '../contants/index'
@@ -75,10 +75,8 @@ function* updateTaskSaga(action) {
         description,
         status
     }, taskEditing.id);
-    const {  data } = resp;
-    console.log(resp.status)
+    const { data } = resp;
     if (resp.status === STATUS_CODE.SUSCCES) {
-        console.log("1")
         yield put(hideModal())
         yield delay(700);
         yield put(globalHideLoading())

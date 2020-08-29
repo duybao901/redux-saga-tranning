@@ -19,3 +19,7 @@ export const addTaskSuccses = () => {
     toast.success(`Add Task Succes`);
 }
 
+export const updateTaskSuccses = () => {
+    toast.success(`Update Task Succes`);
+}
+

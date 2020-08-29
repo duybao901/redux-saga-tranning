@@ -3,13 +3,13 @@
     {
       "title": "Read Book",
       "description": "Read Book in libary",
-      "status": "1",
+      "status": 1,
       "id": 1
     },
     {
-      "title": "Make Cofee",
+      "title": "Make Cofees",
       "description": "Make Cofee at tomorrow",
-      "status": "0",
+      "status": 0,
       "id": 2
     },
     {
@@ -33,19 +33,19 @@
     {
       "title": "Playing Game 123",
       "description": "Playing game with my friend",
-      "status": "1",
+      "status": 1,
       "id": 6
     },
     {
       "title": "Listening to music",
       "description": "Listening to music 2",
-      "status": "2",
+      "status": 2,
       "id": 7
     },
     {
       "title": "123222",
-      "description": "123",
-      "status": "0",
+      "description": "1232",
+      "status": 2,
       "id": 8
     }
   ]
