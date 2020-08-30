@@ -107,7 +107,7 @@ function* deleteTaskSaga(action) {
         yield put(globalHideLoading())
         yield put(deleteTaskSucces(taskId));
     } else {
-        //yield put(deleteTaskFalse(data))
+        yield put(deleteTaskFalse(data))
     }
     delay(700);
     yield put(globalHideLoading())

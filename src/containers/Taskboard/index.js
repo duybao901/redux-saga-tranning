@@ -1,17 +1,17 @@
-import { withStyles } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import * as ActionsModal from '../../actions/modal'
 import * as ActionsTask from '../../actions/task'
 import SearchBox from '../../components/SearchBox/index'
 import TaskForm from '../../components/TaskForm/index'
 import TaskList from '../../components/TaskList/index'
 import { STATUSS } from '../../contants/index'
-import styles from './style'
+import { withStyles } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import styles from './style'
 
 
 class TaskBoard extends Component {
@@ -22,8 +22,8 @@ class TaskBoard extends Component {
     }
 
     handleEditTask = task => {
-        const { showModal, changeModalTitle, changeModalContent, setTaskEditing} = this.props;
-        setTaskEditing(task);      
+        const { showModal, changeModalTitle, changeModalContent, setTaskEditing } = this.props;
+        setTaskEditing(task);
         showModal();
         changeModalTitle('Editing Task');
         changeModalContent(<TaskForm />);
@@ -48,7 +48,7 @@ class TaskBoard extends Component {
                             color="primary"
                             type="submit"
                             className={classes.deleteTaskButtonOk}
-                            onClick={()=> this.handleDeleteTask(task)}
+                            onClick={() => this.handleDeleteTask(task)}
                         >Ok</Button>
                     </Box>
                 </Grid>
@@ -57,7 +57,7 @@ class TaskBoard extends Component {
     }
 
     handleDeleteTask = (task) => {
-        const { hideModal,deleteTask } = this.props;
+        const { hideModal, deleteTask } = this.props;
         deleteTask(task.id);
         hideModal();
     }
@@ -78,7 +78,7 @@ class TaskBoard extends Component {
                             onClickEdit={this.handleEditTask}
                             onClickDeleteTask={this.showModalDeleteTask}
                         >
-                            </TaskList>
+                        </TaskList>
                     })
                 }
             </Grid>
