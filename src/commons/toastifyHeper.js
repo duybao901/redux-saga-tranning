@@ -23,3 +23,6 @@ export const updateTaskSuccses = () => {
     toast.success(`Update Task Succes`);
 }
 
+export const deleteTaskSuccses = () => {
+    toast.success(`Delete Task Succes`);
+}

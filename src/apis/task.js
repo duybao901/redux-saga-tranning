@@ -16,6 +16,7 @@ export const getList = param => {
 
 }
 
+// http://localhost:3000/tasks/:id METHOD : POST
 export const addTask = data => {
     return axiosServices.post(`${API_URL}/${url}`, data)
 }
@@ -27,4 +28,10 @@ export const updateTaskAPI = (data, taskId) => {
         description: data.description,
         status: parseInt(data.status)
     })
+}
+
+// http://localhost:3000/tasks/:id METHOD : DELETE
+export const deleteTaskAPI = (taskId) => {
+    console.log(taskId);
+    return axiosServices.delete(`${API_URL}/${url}/${taskId}`)
 }

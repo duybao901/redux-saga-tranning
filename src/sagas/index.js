@@ -1,9 +1,16 @@
 // root saga: Điểm bắt đầu của saga
 import { call, delay, fork, put, select, take, takeEvery, takeLatest } from 'redux-saga/effects'
 import { hideModal } from '../actions/modal'
-import { addTaskFalse, addTaskSucces, fecthListTaskFalse, fecthListTaskSucces, fetchTask, updateTaskFalse, updateTaskSucces } from '../actions/task'
+import {
+    addTaskFalse,
+    addTaskSucces,
+    deleteTaskFalse, deleteTaskSucces, fecthListTaskFalse,
+    fecthListTaskSucces,
+    fetchTask, updateTaskFalse,
+    updateTaskSucces
+} from '../actions/task'
 import { globalHideLoading, globalShowLoading } from '../actions/ui'
-import { addTask, getList, updateTaskAPI } from '../apis/task'
+import { addTask, deleteTaskAPI, getList, updateTaskAPI } from '../apis/task'
 import { STATUS_CODE } from '../contants/index'
 import * as actionsType from '../contants/task'
 
@@ -89,11 +96,29 @@ function* updateTaskSaga(action) {
     yield put(globalHideLoading())
 }
 
+function* deleteTaskSaga(action) {
+    const { id:taskId } = action.payload;
+    yield put(globalShowLoading());
+    const resp =yield call(deleteTaskAPI, taskId);   
+    const { status, data } = resp; // Xoa thi kho can data
+    console.log(status, data)
+    if (status === STATUS_CODE.SUSCCES) {
+        yield delay(700);
+        yield put(globalHideLoading())
+        yield put(deleteTaskSucces(taskId));
+    } else {
+        //yield put(deleteTaskFalse(data))
+    }
+    delay(700);
+    yield put(globalHideLoading())
+}
+
 function* rootSaga() {
     yield fork(watchFecthDataAction);
     yield takeEvery(actionsType.ADD_TASK, addTaskSaga);
     yield takeLatest(actionsType.FILTER_TASK, filterTaskSaga);
     yield takeLatest(actionsType.UPDATE_TASK, updateTaskSaga);
+    yield takeLatest(actionsType.DELETE_TASK, deleteTaskSaga);
 }
 
 export default rootSaga;    

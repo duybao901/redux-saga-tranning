@@ -1,4 +1,4 @@
-import { addTaskSuccses, toastError, toastSuccess, updateTaskSuccses } from '../commons/toastifyHeper';
+import { addTaskSuccses, toastError, toastSuccess, updateTaskSuccses, deleteTaskSuccses } from '../commons/toastifyHeper';
 import * as TaskContants from '../contants/task';
 const initialState = {
     listTask: [],
@@ -29,7 +29,6 @@ const myReducer = (state = initialState, action) => {
                 listTask: state.listTask
             }
         }
-
         case TaskContants.FILTER_TASK_SUCCESS: {
             const { data } = action.payload
             const newState = data;
@@ -94,6 +93,27 @@ const myReducer = (state = initialState, action) => {
             }
         }
         case TaskContants.UPDATE_TASK_FALSE: {
+            const { error } = action.payload;
+            toastError(error);
+            return {
+                ...state,
+                error
+            }
+        }
+        case TaskContants.DELETE_TASK: {
+            return {
+                ...state,
+            }
+        }
+        case TaskContants.DELETE_TASK_SUCCESS: {
+            const { id } = action.payload;
+            deleteTaskSuccses();
+            return {
+                ...state,
+                listTask: state.listTask.filter((task) => task.id !== id)
+            }
+        }
+        case TaskContants.DELETE_TASK_FALSE: {
             const { error } = action.payload;
             toastError(error);
             return {

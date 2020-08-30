@@ -26,6 +26,9 @@ class axiosServices {
     put(url, body) {
         return this.intance.put(url, body)
     }
+    delete(url) {
+        return this.intance.delete(url)
+    }
 
 }
 

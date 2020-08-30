@@ -123,6 +123,35 @@ export const updateTaskFalse = error => {
     }
 }
 
+export const deleteTask = id => {
+    return {
+        type: TaskConstants.DELETE_TASK,
+        payload: {
+            id
+        }
+    }
+}
+
+export const deleteTaskSucces = id => {
+    return {
+        type: TaskConstants.DELETE_TASK_SUCCESS,
+        payload: {
+            id
+        }
+
+    }
+}
+
+export const deleteTaskFalse = error => {
+    return {
+        type: TaskConstants.DELETE_TASK_FALSE,
+        payload: {
+            error
+        }
+
+    }
+}
+
 
 
 

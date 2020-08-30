@@ -43,11 +43,23 @@ class TaskBoard extends Component {
                         <Button variant="contained" onClick={hideModal}>Cancel</Button>
                     </Box>
                     <Box component="div">
-                        <Button variant="contained" color="primary" type="submit" className={classes.deleteTaskButtonOk}>Ok</Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            className={classes.deleteTaskButtonOk}
+                            onClick={()=> this.handleDeleteTask(task)}
+                        >Ok</Button>
                     </Box>
                 </Grid>
             </Box>
         </div>);
+    }
+
+    handleDeleteTask = (task) => {
+        const { hideModal,deleteTask } = this.props;
+        deleteTask(task.id);
+        hideModal();
     }
 
     renderTaskBoard = (listTask) => {
@@ -153,6 +165,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setTaskEditing: (task) => {
             dispatch(ActionsTask.taskEditing(task));
+        },
+        deleteTask: (id) => {
+            dispatch(ActionsTask.deleteTask(id))
         }
 
     }
