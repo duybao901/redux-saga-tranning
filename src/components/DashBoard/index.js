@@ -7,9 +7,9 @@ import SideBar from './SideBar/index'
 
 class DashBoard extends Component{
     render() {
-        const {children} = this.props
+        const {children, name} = this.props
         return <div>
-            <Header>
+            <Header name={name}>
             </Header>
             <SideBar></SideBar>
             {children}

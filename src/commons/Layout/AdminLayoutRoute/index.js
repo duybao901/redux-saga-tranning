@@ -4,14 +4,14 @@ import DashBoard from '../../../components/DashBoard/index'
 
 class AdminLayoutRoute extends Component {
     render() {
-        const { path, exact, component: YourComponent }  = this.props;
+        const { path, exact, component: YourComponent, name }  = this.props;
         return <Route
             exact={exact}
             path={path}
             render={
                 routeProps => {
                     return (
-                        <DashBoard>
+                        <DashBoard name={name}>
                             <YourComponent {...routeProps}/>
                         </DashBoard>
                     )

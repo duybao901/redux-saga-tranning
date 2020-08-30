@@ -27,13 +27,13 @@ export const STATUS_CODE = {
 export const ROUTES = [
     {
         path: '/',
-        name: 'Admin Page',
+        name: 'Admin',
         exact: true,
         component: AdminHomePage,
     },
     {
         path: '/task-board',
-        name: 'TaskBoard Page',
+        name: 'TaskBoard',
         component: Taskboard,
     }
 ]
