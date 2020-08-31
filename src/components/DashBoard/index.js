@@ -6,13 +6,22 @@ import SideBar from './SideBar/index'
 
 
 class DashBoard extends Component{
+    constructor(props) {
+        super(props);
+
+    }
     render() {
-        const {children, name} = this.props
+        const {children, name, classes} = this.props
         return <div>
-            <Header name={name}>
-            </Header>
-            <SideBar></SideBar>
-            {children}
+          
+                <Header name={name}>
+                </Header>
+            <div className={classes.wraper}>
+                <SideBar className={classes.SideBar}></SideBar>
+                <div className={classes.taskBoard}>
+                    {children}
+                </div>
+            </div>
         </div>
     }
 }
