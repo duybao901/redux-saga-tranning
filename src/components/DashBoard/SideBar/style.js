@@ -3,7 +3,7 @@ const styles = theme => {
         drawer: {
             width: '240px',
             flexShrink: 0,
-
+            zIndex: 1
         },
         drawerPaper: {
             width: '240px',
@@ -21,6 +21,25 @@ const styles = theme => {
             marginLeft: 'auto',
             marginRight: "20px",
             marginTop: "20px"
+        },
+        sidebarNavLink: {
+            color:"#000",
+            backgroundColor: 'red',
+            textDecoration: 'none',
+            '& > div': {
+                padding: "12px 10px",
+            },
+            '&:hover > div': {
+                backgroundColor: "#d9d9d9"
+            }
+        },
+        sidebarNavLinkActive: {
+            '& > div': {
+                backgroundColor: "#f5f5f5"
+            },           
+        },
+        sibarList: {
+            padding: 0,
         }
     }
 }
